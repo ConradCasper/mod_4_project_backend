@@ -2,13 +2,13 @@ class Api::V1::UsersController < ApplicationController
 
 
     def index
-        @Users = Users.all
-        render json: @Users
+        @users = Users.all
+        render json: @users.to_json( include: [:cohorts])
     end
 
     def show
         @user = User.find_by(id: params[:id])
-        render json: @user
+        render json: @user.to_json( include: [:cohorts])
     end
 
     def new

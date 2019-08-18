@@ -3,12 +3,12 @@ class Api::V1::CohortsController < ApplicationController
 
     def index
         @cohorts = Cohort.all
-        render json: @cohorts
+        render json: @cohorts.to_json( include: [:users])
     end
 
     def show
         @cohort = Cohort.find_by(id: params[:id])
-        render json: @cohort
+        render json: @cohort.to_json( include: [:users])
     end
 
     def new
