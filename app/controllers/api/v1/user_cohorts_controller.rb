@@ -48,7 +48,7 @@ class Api::V1::UserCohortsController < ApplicationController
     private
 
     def user_cohort_params
-        require(:user_chort).permit(:user_id, :cohort_id)
+        params.require(:user_chort).permit(:user_id, :cohort_id)
     end
 
 end
