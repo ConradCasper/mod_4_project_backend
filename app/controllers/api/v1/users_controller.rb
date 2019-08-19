@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
 
 
     def index
-        @users = Users.all
+        @users = User.all
         render json: @users.to_json( include: [:cohorts])
     end
 
@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-        @user = User.create(username: params[:username], password: params[:password])
+        @user = User.create(user_params)
         if @user.valid?
             render json: {user: @user}, status: :created
         else
@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def edit
-        @user = User.find_by(id: user_params[:id])
+        @user = User.find_by(id: params[:id])
         render json: @user
     end
 
@@ -59,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
     private
 
     def user_params
-        require.(:user).permit(
+        params.require.(:user).permit(
             :username,
             :password,
             :bio,
