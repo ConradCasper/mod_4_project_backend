@@ -53,7 +53,7 @@ class Api::V1::CohortsController < ApplicationController
     private
 
     def cohort_params
-        require.(:cohort).permit(:offical_name, :slogan, :start_date, :end_date, :location, :image)
+        params.require(:cohort).permit(:offical_name, :slogan, :start_date, :end_date, :location, :image)
     end
 
 
