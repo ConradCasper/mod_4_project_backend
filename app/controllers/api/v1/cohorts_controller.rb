@@ -1,6 +1,5 @@
 class Api::V1::CohortsController < ApplicationController
-
-
+        
     def index
         @cohorts = Cohort.all
         render json: @cohorts.to_json( include: [:users])
