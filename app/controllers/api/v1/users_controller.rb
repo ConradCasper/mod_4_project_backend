@@ -20,7 +20,7 @@ class Api::V1::UsersController < ApplicationController
         @user = User.create(name: user_params[:name], email: user_params[:email], password: user_params[:password])
         if @user.valid?
             @token = encode_token(user_id: @user.id)
-            render json: {user: @user, jwt: @token}, status: :created
+            render json: {user: UserSerializer.new(@user), jwt: @token}, status: :created
         else
             render json: { error: 'failed to create user' }, status: :not_acceptable
         end
@@ -58,7 +58,7 @@ class Api::V1::UsersController < ApplicationController
         user = User.find_by(id: params[:id])
         user.destroy
         flash[:warning] = “Instance Successfully Deleted!”
-        redirect_to `/api/v1/users/profile`
+        redirect_to `/api/v1/users`
     end
 
 
