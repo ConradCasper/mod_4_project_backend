@@ -15,7 +15,7 @@ class Api::V1::UserCohortsController < ApplicationController
     end
 
     def create
-        @user_cohort = User_Cohort.create(params)
+        @user_cohort = User_Cohort.create(user_cohort_params)
         if @user_cohort.valid?
             render json: {user_cohort: @user_cohort}, status: :created
         else

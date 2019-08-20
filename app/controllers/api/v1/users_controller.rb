@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-        @user = User.create(name: user_params[:name], email: user_params[:email], password: user_params[:password])
+        @user = User.create(user_params)
         if @user.valid?
             @token = encode_token(user_id: @user.id)
             render json: {user: UserSerializer.new(@user), jwt: @token}, status: :created
@@ -64,6 +64,8 @@ class Api::V1::UsersController < ApplicationController
 
     private
 
+
+
     def user_params
        params.require(:user).permit(
             :username,
@@ -78,7 +80,8 @@ class Api::V1::UsersController < ApplicationController
             :github,
             :linkedIn,
             :twitter,
-            :facebook
+            :facebook,
+            :current_employer
         )
     end
 
