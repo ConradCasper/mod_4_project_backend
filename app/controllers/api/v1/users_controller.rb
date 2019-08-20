@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :index, :show, ]
 
 
     def index
@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-        @user = User.create(user_params)
+        @user = User.create(name: user_params[:name], email: user_params[:email], password: user_params[:password])
         if @user.valid?
             @token = encode_token(user_id: @user.id)
             render json: {user: @user, jwt: @token}, status: :created
@@ -58,7 +58,7 @@ class Api::V1::UsersController < ApplicationController
         user = User.find_by(id: params[:id])
         user.destroy
         flash[:warning] = “Instance Successfully Deleted!”
-        redirect_to `/api/v1/users`
+        redirect_to `/api/v1/users/profile`
     end
 
 
