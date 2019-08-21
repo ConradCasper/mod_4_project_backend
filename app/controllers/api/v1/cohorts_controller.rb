@@ -1,5 +1,5 @@
 class Api::V1::CohortsController < ApplicationController
-        
+        skip_before_action :authorized, only: [:index, :show]
     def index
         @cohorts = Cohort.all
         render json: @cohorts.to_json( include: [:users])
@@ -17,7 +17,7 @@ class Api::V1::CohortsController < ApplicationController
     def create
         @cohort = Cohort.create(cohort_params)
         if @cohort.valid?
-            render json: {cohort: @cohort}, status: :created
+            render json: { cohort: @cohort }, status: :created
         else
             render json: { error: 'failed to create cohort' }, status: :not_acceptable
         end
@@ -52,7 +52,8 @@ class Api::V1::CohortsController < ApplicationController
     private
 
     def cohort_params
-        params.require(:cohort).permit(:offical_name, :slogan, :start_date, :end_date, :location, :image)
+        # params.require(:cohort) ####### nesting was not needed here
+        params.require(:cohort).permit(:official_name, :slogan, :start_date, :location, :image, :course)
     end
 
 
