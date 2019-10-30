@@ -1,5 +1,5 @@
 class Api::V1::UserCohortsController < ApplicationController
-
+    skip_before_action :authorized, only: [:index, :show]
     def index
         @user_cohorts = UserCohort.all
         render json: @user_cohorts

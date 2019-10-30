@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_164935) do
     t.string "slogan", default: "Git Rich or Die Pryin'"
     t.string "start_date"
     t.string "end_date"
-    t.string "location"
+    t.string "location", default: "New York, NY"
     t.string "image", default: "https://media.glassdoor.com/sqll/964142/flatiron-school-squarelogo-1479222088421.png"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
